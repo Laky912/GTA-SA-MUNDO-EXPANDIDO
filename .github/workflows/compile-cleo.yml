@@ -65,6 +65,25 @@ jobs:
           Get-ChildItem build | Format-Table Name,Length
           if (-not (Test-Path "build/ME_Core_Menu.cs")) { throw "El compilador no generó el archivo .cs." }
 
+      - name: Package initial playable module
+        if: success()
+        shell: pwsh
+        run: |
+          $stage = "dist/GTA-SA-Mundo-Expandido"
+          New-Item -ItemType Directory -Force -Path "$stage/CLEO", $stage | Out-Null
+          Copy-Item "build/ME_Core_Menu.cs" "$stage/CLEO/ME_Core_Menu.cs"
+          Copy-Item "docs/INSTALACION.md" "$stage/INSTALACION.md"
+          Copy-Item "README.md" "$stage/README_PROYECTO.md"
+          Compress-Archive -Path $stage -DestinationPath "dist/GTA-SA-Mundo-Expandido-inicial.zip" -Force
+
+      - name: Upload initial ZIP
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: GTA-SA-Mundo-Expandido-inicial
+          path: dist/GTA-SA-Mundo-Expandido-inicial.zip
+          if-no-files-found: error
+
       - name: Upload compiler diagnostics
         if: always()
         uses: actions/upload-artifact@v4
