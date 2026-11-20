@@ -41,17 +41,24 @@ jobs:
           $sannyDir = Split-Path $env:SANNY_EXE -Parent
           Push-Location $sannyDir
           try {
-            & $env:SANNY_EXE --no-splash --mode sa_sbl --compile "$env:GITHUB_WORKSPACE/src/cleo/ME_Core_Menu.txt" "$env:GITHUB_WORKSPACE/build/ME_Core_Menu.cs" *> "$env:GITHUB_WORKSPACE/build/compiler-output.txt"
+            $smoke = Join-Path $env:RUNNER_TEMP "cleo-smoke-test.txt"
+            @('{$CLEO .cs}', 'nop', 'terminate_this_script') | Set-Content -Encoding ASCII $smoke
+            Write-Host "===== PRUEBA MINIMA DEL COMPILADOR ====="
+            & $env:SANNY_EXE --no-splash --mode sa_sbl --compile $smoke (Join-Path $env:GITHUB_WORKSPACE "build/cleo-smoke-test.cs")
+            $smokeExit = $LASTEXITCODE
+            "Smoke test exit code: $smokeExit" | Out-File "$env:GITHUB_WORKSPACE/build/smoke-result.txt"
+            if (Test-Path "compile.log") { Copy-Item "compile.log" "$env:GITHUB_WORKSPACE/build/smoke-compile.log" -Force; Remove-Item "compile.log" -Force }
+            if ($smokeExit -ne 0) { throw "Sanny Builder no pudo compilar ni el script CLEO minimo (exit $smokeExit)." }
+
+            Write-Host "===== COMPILACION DEL PROYECTO ====="
+            & $env:SANNY_EXE --no-splash --mode sa_sbl --compile "$env:GITHUB_WORKSPACE/src/cleo/ME_Core_Menu.txt" "$env:GITHUB_WORKSPACE/build/ME_Core_Menu.cs"
             $compileExit = $LASTEXITCODE
             "Compiler exit code: $compileExit" | Out-File "$env:GITHUB_WORKSPACE/build/compiler-result.txt"
             if (Test-Path "compile.log") { Copy-Item "compile.log" "$env:GITHUB_WORKSPACE/build/compile.log" -Force }
           }
           finally { Pop-Location }
-          Write-Host "===== SALIDA DEL COMPILADOR ====="
-          Get-Content "build/compiler-output.txt" -ErrorAction SilentlyContinue
-          if (Test-Path "build/compile.log") { Write-Host "===== COMPILE.LOG ====="; Get-Content "build/compile.log" }
           Get-ChildItem build | Format-Table Name,Length
-          if ($compileExit -ne 0) { throw "Falló la compilación CLEO. Revisa la salida anterior." }
+          if ($compileExit -ne 0) { throw "Falló la compilación CLEO del proyecto (exit $compileExit)." }
           if (-not (Test-Path "build/ME_Core_Menu.cs")) { throw "El compilador no generó el archivo .cs." }
           if ((Get-Item "build/ME_Core_Menu.cs").Length -lt 16) { throw "El archivo .cs generado parece vacío o incompleto." }
 
