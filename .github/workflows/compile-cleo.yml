@@ -42,7 +42,10 @@ jobs:
           $compileExit = $LASTEXITCODE
           "Compiler exit code: $compileExit" | Out-File "build/compiler-result.txt"
           if (Test-Path "compile.log") { Copy-Item "compile.log" "build/compile.log" -Force }
-          if ($compileExit -ne 0) { throw "Falló la compilación CLEO. Revisa el artefacto de diagnósticos." }
+          Write-Host "===== SALIDA DEL COMPILADOR ====="
+          Get-Content "build/compiler-output.txt" -ErrorAction SilentlyContinue
+          if (Test-Path "build/compile.log") { Write-Host "===== COMPILE.LOG ====="; Get-Content "build/compile.log" }
+          if ($compileExit -ne 0) { throw "Falló la compilación CLEO. Revisa la salida anterior." }
           if (-not (Test-Path "build/ME_Core_Menu.cs")) { throw "El compilador no generó el archivo .cs." }
 
       - name: Upload compiler diagnostics
