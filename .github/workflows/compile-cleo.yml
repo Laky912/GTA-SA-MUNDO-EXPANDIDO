@@ -19,7 +19,7 @@ concurrency:
 jobs:
   compile:
     runs-on: windows-latest
-    timeout-minutes: 2
+    timeout-minutes: 5
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -38,15 +38,22 @@ jobs:
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path build | Out-Null
-          & $env:SANNY_EXE --compile "src/cleo/ME_Core_Menu.txt" "build/ME_Core_Menu.cs" --mode sa_sbl --no-splash *> "build/compiler-output.txt"
-          $compileExit = $LASTEXITCODE
-          "Compiler exit code: $compileExit" | Out-File "build/compiler-result.txt"
-          if (Test-Path "compile.log") { Copy-Item "compile.log" "build/compile.log" -Force }
+          $sannyDir = Split-Path $env:SANNY_EXE -Parent
+          Push-Location $sannyDir
+          try {
+            & $env:SANNY_EXE --no-splash --mode sa_sbl --compile "$env:GITHUB_WORKSPACE/src/cleo/ME_Core_Menu.txt" "$env:GITHUB_WORKSPACE/build/ME_Core_Menu.cs" *> "$env:GITHUB_WORKSPACE/build/compiler-output.txt"
+            $compileExit = $LASTEXITCODE
+            "Compiler exit code: $compileExit" | Out-File "$env:GITHUB_WORKSPACE/build/compiler-result.txt"
+            if (Test-Path "compile.log") { Copy-Item "compile.log" "$env:GITHUB_WORKSPACE/build/compile.log" -Force }
+          }
+          finally { Pop-Location }
           Write-Host "===== SALIDA DEL COMPILADOR ====="
           Get-Content "build/compiler-output.txt" -ErrorAction SilentlyContinue
           if (Test-Path "build/compile.log") { Write-Host "===== COMPILE.LOG ====="; Get-Content "build/compile.log" }
+          Get-ChildItem build | Format-Table Name,Length
           if ($compileExit -ne 0) { throw "Falló la compilación CLEO. Revisa la salida anterior." }
           if (-not (Test-Path "build/ME_Core_Menu.cs")) { throw "El compilador no generó el archivo .cs." }
+          if ((Get-Item "build/ME_Core_Menu.cs").Length -lt 16) { throw "El archivo .cs generado parece vacío o incompleto." }
 
       - name: Upload compiler diagnostics
         if: always()
