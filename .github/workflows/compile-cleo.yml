@@ -34,10 +34,11 @@ jobs:
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path build | Out-Null
-          $proc = Start-Process -FilePath $env:SANNY_EXE -ArgumentList @("--no-splash", "--mode", "sa_sbl", "--compile", "src/cleo/ME_Core_Menu.txt", "build/ME_Core_Menu.cs") -PassThru -Wait -RedirectStandardOutput "build/compiler-stdout.txt" -RedirectStandardError "build/compiler-stderr.txt"
-          "Compiler exit code: $($proc.ExitCode)" | Out-File "build/compiler-result.txt"
+          & $env:SANNY_EXE --compile "src/cleo/ME_Core_Menu.txt" "build/ME_Core_Menu.cs" --mode sa_sbl --no-splash *> "build/compiler-output.txt"
+          $compileExit = $LASTEXITCODE
+          "Compiler exit code: $compileExit" | Out-File "build/compiler-result.txt"
           if (Test-Path "compile.log") { Copy-Item "compile.log" "build/compile.log" -Force }
-          if ($proc.ExitCode -ne 0) { throw "Falló la compilación CLEO. Revisa el artefacto de diagnósticos." }
+          if ($compileExit -ne 0) { throw "Falló la compilación CLEO. Revisa el artefacto de diagnósticos." }
           if (-not (Test-Path "build/ME_Core_Menu.cs")) { throw "El compilador no generó el archivo .cs." }
 
       - name: Upload compiler diagnostics
