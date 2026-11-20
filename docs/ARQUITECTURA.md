@@ -46,3 +46,8 @@ La documentación oficial confirma el uso de `--compile` en la CLI y la directiv
 ## Pruebas que todavía requieren el juego
 
 La compilación automática no puede verificar el comportamiento real de GTA SA. Antes de una versión final habrá que probar inicio, carga de partida, apertura/cierre del panel, controles, guardado y rendimiento en la instalación SA 1.0 US del usuario.
+
+
+## Panel de administrador
+
+La fuente principal reserva F6 para un panel separado del menú F5. En esta primera iteración incluye acciones directas de modo libre: añadir dinero en dos cantidades, restaurar salud y chaleco, y quitar el nivel de búsqueda policial. ESC cierra ambos paneles. El panel es local para un jugador; no implementa autenticación ni permisos de servidor.
