@@ -1,0 +1,49 @@
+{$CLEO .cs}
+
+// GTA San Andreas - Mundo Expandido
+// Core de interfaz: menú de desarrollo F5.
+// Objetivo: GTA SA 1.0 US + CLEO.
+// Este archivo es FUENTE Sanny Builder; no es un .cs compilado.
+
+0000:
+03A4: name_thread 'ME_CORE'
+
+:ME_MAIN
+wait 0
+
+// F5 abre/cierra el panel. Se espera a soltar la tecla para evitar
+// que una sola pulsación active el menú varias veces.
+if
+    0AB0: key_pressed 0x74
+then
+    wait 250
+    if
+        0AB0: key_pressed 0x74
+    then
+        0ACD: show_text_highpriority "MUNDO EXPANDIDO~n~~w~Panel principal~n~~y~F5: mostrar panel~n~ESC: cerrar aviso" time 5000
+        :ME_WAIT_F5_RELEASE
+        wait 0
+        if
+            0AB0: key_pressed 0x74
+        then
+            jump @ME_WAIT_F5_RELEASE
+        end
+    end
+end
+
+// ESC limpia el aviso del panel sin modificar el estado del juego.
+if
+    0AB0: key_pressed 0x1B
+then
+    wait 250
+    0ACD: show_text_highpriority " " time 1
+    :ME_WAIT_ESC_RELEASE
+    wait 0
+    if
+        0AB0: key_pressed 0x1B
+    then
+        jump @ME_WAIT_ESC_RELEASE
+    end
+end
+
+jump @ME_MAIN
