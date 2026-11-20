@@ -33,3 +33,16 @@ La tecla F5 queda reservada para el panel del proyecto. El primer archivo fuente
 ## Estado de verificación
 
 El código actual es fuente Sanny Builder y requiere compilación para convertirse en un script CLEO ejecutable. La compilación y las pruebas dentro del juego siguen pendientes; este repositorio no etiqueta la fuente como una versión instalable.
+
+
+## Compilación automatizada
+
+El workflow `.github/workflows/compile-cleo.yml` descarga la versión oficial de Sanny Builder 4.2.0 y compila las fuentes CLEO en un runner Windows. El artefacto resultante sirve para comprobar que el código fuente puede convertirse en un script binario; no equivale a una prueba dentro del juego.
+
+La documentación oficial confirma el uso de `--compile` en la CLI y la directiva `{$CLEO .cs}` para generar scripts CLEO independientes:
+- https://docs.sannybuilder.com/editor/cli
+- https://tutorial.sannybuilder.com/cleo-directive/
+
+## Pruebas que todavía requieren el juego
+
+La compilación automática no puede verificar el comportamiento real de GTA SA. Antes de una versión final habrá que probar inicio, carga de partida, apertura/cierre del panel, controles, guardado y rendimiento en la instalación SA 1.0 US del usuario.
