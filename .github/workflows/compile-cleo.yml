@@ -1,0 +1,45 @@
+name: Compile CLEO scripts
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/cleo/**"
+      - ".github/workflows/compile-cleo.yml"
+  pull_request:
+    paths:
+      - "src/cleo/**"
+      - ".github/workflows/compile-cleo.yml"
+  workflow_dispatch:
+
+jobs:
+  compile:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download Sanny Builder 4.2.0
+        shell: pwsh
+        run: |
+          $url = "https://github.com/sannybuilder/dev/releases/download/v4.2.0/SannyBuilder-v4.2.0.zip"
+          Invoke-WebRequest -Uri $url -OutFile "$env:RUNNER_TEMP\sanny.zip"
+          Expand-Archive -Path "$env:RUNNER_TEMP\sanny.zip" -DestinationPath "$env:RUNNER_TEMP\sanny" -Force
+          $exe = Get-ChildItem "$env:RUNNER_TEMP\sanny" -Filter sanny.exe -Recurse | Select-Object -First 1
+          if (-not $exe) { throw "No se encontró sanny.exe en el archivo oficial." }
+          "SANNY_EXE=$($exe.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Append
+
+      - name: Compile CLEO source
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path build | Out-Null
+          & $env:SANNY_EXE --no-splash --game sa --compile "src/cleo/ME_Core_Menu.txt" "build/ME_Core_Menu.cs"
+          if ($LASTEXITCODE -ne 0) { throw "Falló la compilación de ME_Core_Menu.txt." }
+          if (-not (Test-Path "build/ME_Core_Menu.cs")) { throw "El compilador no generó el archivo .cs." }
+
+      - name: Upload compiled CLEO script
+        uses: actions/upload-artifact@v4
+        with:
+          name: mundo-expandido-cleo-build
+          path: build/ME_Core_Menu.cs
+          if-no-files-found: error
