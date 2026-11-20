@@ -41,23 +41,43 @@ jobs:
           $sannyDir = Split-Path $env:SANNY_EXE -Parent
           Push-Location $sannyDir
           try {
+            function Wait-ForBinary([string]$Path, [int]$MinimumBytes) {
+              $deadline = (Get-Date).AddSeconds(20)
+              do {
+                if (Test-Path -LiteralPath $Path) {
+                  $item = Get-Item -LiteralPath $Path
+                  if (-not $item.PSIsContainer -and $item.Length -ge $MinimumBytes) {
+                    Write-Host "Binario detectado: $Path ($($item.Length) bytes)"
+                    return $true
+                  }
+                }
+                Start-Sleep -Milliseconds 500
+              } while ((Get-Date) -lt $deadline)
+              return $false
+            }
+
             $smoke = Join-Path $env:RUNNER_TEMP "cleo-smoke-test.txt"
             @('{$CLEO .cs}', 'nop', 'terminate_this_script') | Set-Content -Encoding ASCII $smoke
             Write-Host "===== PRUEBA MINIMA DEL COMPILADOR ====="
             $smokeOut = Join-Path $env:GITHUB_WORKSPACE "build/cleo-smoke-test.cs"
             & $env:SANNY_EXE --mode sa_sbl --compile $smoke $smokeOut
-            if (Test-Path "compile.log") { Copy-Item "compile.log" "$env:GITHUB_WORKSPACE/build/smoke-compile.log" -Force; Remove-Item "compile.log" -Force }
-            if (-not (Test-Path $smokeOut) -or (Get-Item $smokeOut).Length -lt 8) {
-              throw "Sanny Builder no generó el binario de la prueba mínima. Revisa build/smoke-compile.log."
+            if (Test-Path "compile.log") {
+              Copy-Item "compile.log" "$env:GITHUB_WORKSPACE/build/smoke-compile.log" -Force
+              Remove-Item "compile.log" -Force
+            }
+            if (-not (Wait-ForBinary $smokeOut 8)) {
+              throw "Sanny Builder no generó el binario de la prueba mínima en 20 segundos. Revisa build/smoke-compile.log."
             }
             "Smoke test: output generated" | Out-File "$env:GITHUB_WORKSPACE/build/smoke-result.txt"
 
             Write-Host "===== COMPILACION DEL PROYECTO ====="
             $projectOut = Join-Path $env:GITHUB_WORKSPACE "build/ME_Core_Menu.cs"
             & $env:SANNY_EXE --mode sa_sbl --compile "$env:GITHUB_WORKSPACE/src/cleo/ME_Core_Menu.txt" $projectOut
-            if (Test-Path "compile.log") { Copy-Item "compile.log" "$env:GITHUB_WORKSPACE/build/compile.log" -Force }
-            if (-not (Test-Path $projectOut) -or (Get-Item $projectOut).Length -lt 16) {
-              throw "Sanny Builder no generó un binario válido para el panel CLEO. Revisa build/compile.log."
+            if (Test-Path "compile.log") {
+              Copy-Item "compile.log" "$env:GITHUB_WORKSPACE/build/compile.log" -Force
+            }
+            if (-not (Wait-ForBinary $projectOut 16)) {
+              throw "Sanny Builder no generó un binario válido para el panel CLEO en 20 segundos. Revisa build/compile.log."
             }
             "Compiler: output generated" | Out-File "$env:GITHUB_WORKSPACE/build/compiler-result.txt"
           }
