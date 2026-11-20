@@ -15,6 +15,7 @@ on:
 jobs:
   compile:
     runs-on: windows-latest
+    timeout-minutes: 5
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,10 +34,10 @@ jobs:
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path build | Out-Null
-          & $env:SANNY_EXE --no-splash --game sa --compile "src/cleo/ME_Core_Menu.txt" "build/ME_Core_Menu.cs" 2>&1 | Tee-Object -FilePath "build/compile-output.txt"
-          $compileExit = $LASTEXITCODE
+          $proc = Start-Process -FilePath $env:SANNY_EXE -ArgumentList @("--no-splash", "--mode", "sa_sbl", "--compile", "src/cleo/ME_Core_Menu.txt", "build/ME_Core_Menu.cs") -PassThru -Wait -RedirectStandardOutput "build/compiler-stdout.txt" -RedirectStandardError "build/compiler-stderr.txt"
+          "Compiler exit code: $($proc.ExitCode)" | Out-File "build/compiler-result.txt"
           if (Test-Path "compile.log") { Copy-Item "compile.log" "build/compile.log" -Force }
-          if ($compileExit -ne 0) { throw "Falló la compilación de ME_Core_Menu.txt. Consulta los logs del artefacto." }
+          if ($proc.ExitCode -ne 0) { throw "Falló la compilación CLEO. Revisa el artefacto de diagnósticos." }
           if (-not (Test-Path "build/ME_Core_Menu.cs")) { throw "El compilador no generó el archivo .cs." }
 
       - name: Upload compiler diagnostics
@@ -44,8 +45,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: mundo-expandido-compiler-diagnostics
-          path: build/*.txt
-          if-no-files-found: ignore
+          path: build/
+          if-no-files-found: warn
 
       - name: Upload compiled CLEO script
         if: success()
