@@ -24,6 +24,10 @@ Convertir el modo libre en una experiencia ampliada, en español y ligera para e
 - Prioridad: estabilidad, scripts ligeros y recursos de baja resolución.
 - No se requieren ENB ni paquetes de texturas HD.
 
+## Panel de administrador
+
+Se está incorporando un panel local para modo libre, independiente del menú principal: F6 abre/cierra; permite añadir $10,000 o $100,000, restaurar salud y chaleco, y quitar el nivel de búsqueda policial. Las acciones se consideran en desarrollo hasta completar compilación y pruebas dentro del juego.
+
 ## Estado real
 
 **Desarrollo en curso.** El repositorio contiene especificación, configuración y fuentes de desarrollo. Todavía no contiene un mod compilado y probado; no debe instalarse como si fuera una versión jugable.
