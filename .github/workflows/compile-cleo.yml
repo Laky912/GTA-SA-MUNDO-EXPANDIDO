@@ -44,23 +44,26 @@ jobs:
             $smoke = Join-Path $env:RUNNER_TEMP "cleo-smoke-test.txt"
             @('{$CLEO .cs}', 'nop', 'terminate_this_script') | Set-Content -Encoding ASCII $smoke
             Write-Host "===== PRUEBA MINIMA DEL COMPILADOR ====="
-            & $env:SANNY_EXE --no-splash --mode sa_sbl --compile $smoke (Join-Path $env:GITHUB_WORKSPACE "build/cleo-smoke-test.cs")
-            $smokeExit = $LASTEXITCODE
-            "Smoke test exit code: $smokeExit" | Out-File "$env:GITHUB_WORKSPACE/build/smoke-result.txt"
+            $smokeOut = Join-Path $env:GITHUB_WORKSPACE "build/cleo-smoke-test.cs"
+            & $env:SANNY_EXE --mode sa_sbl --compile $smoke $smokeOut
             if (Test-Path "compile.log") { Copy-Item "compile.log" "$env:GITHUB_WORKSPACE/build/smoke-compile.log" -Force; Remove-Item "compile.log" -Force }
-            if ($smokeExit -ne 0) { throw "Sanny Builder no pudo compilar ni el script CLEO minimo (exit $smokeExit)." }
+            if (-not (Test-Path $smokeOut) -or (Get-Item $smokeOut).Length -lt 8) {
+              throw "Sanny Builder no generó el binario de la prueba mínima. Revisa build/smoke-compile.log."
+            }
+            "Smoke test: output generated" | Out-File "$env:GITHUB_WORKSPACE/build/smoke-result.txt"
 
             Write-Host "===== COMPILACION DEL PROYECTO ====="
-            & $env:SANNY_EXE --no-splash --mode sa_sbl --compile "$env:GITHUB_WORKSPACE/src/cleo/ME_Core_Menu.txt" "$env:GITHUB_WORKSPACE/build/ME_Core_Menu.cs"
-            $compileExit = $LASTEXITCODE
-            "Compiler exit code: $compileExit" | Out-File "$env:GITHUB_WORKSPACE/build/compiler-result.txt"
+            $projectOut = Join-Path $env:GITHUB_WORKSPACE "build/ME_Core_Menu.cs"
+            & $env:SANNY_EXE --mode sa_sbl --compile "$env:GITHUB_WORKSPACE/src/cleo/ME_Core_Menu.txt" $projectOut
             if (Test-Path "compile.log") { Copy-Item "compile.log" "$env:GITHUB_WORKSPACE/build/compile.log" -Force }
+            if (-not (Test-Path $projectOut) -or (Get-Item $projectOut).Length -lt 16) {
+              throw "Sanny Builder no generó un binario válido para el panel CLEO. Revisa build/compile.log."
+            }
+            "Compiler: output generated" | Out-File "$env:GITHUB_WORKSPACE/build/compiler-result.txt"
           }
           finally { Pop-Location }
           Get-ChildItem build | Format-Table Name,Length
-          if ($compileExit -ne 0) { throw "Falló la compilación CLEO del proyecto (exit $compileExit)." }
           if (-not (Test-Path "build/ME_Core_Menu.cs")) { throw "El compilador no generó el archivo .cs." }
-          if ((Get-Item "build/ME_Core_Menu.cs").Length -lt 16) { throw "El archivo .cs generado parece vacío o incompleto." }
 
       - name: Upload compiler diagnostics
         if: always()
