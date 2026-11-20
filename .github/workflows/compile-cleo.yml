@@ -33,11 +33,22 @@ jobs:
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path build | Out-Null
-          & $env:SANNY_EXE --no-splash --game sa --compile "src/cleo/ME_Core_Menu.txt" "build/ME_Core_Menu.cs"
-          if ($LASTEXITCODE -ne 0) { throw "Falló la compilación de ME_Core_Menu.txt." }
+          & $env:SANNY_EXE --no-splash --game sa --compile "src/cleo/ME_Core_Menu.txt" "build/ME_Core_Menu.cs" 2>&1 | Tee-Object -FilePath "build/compile-output.txt"
+          $compileExit = $LASTEXITCODE
+          if (Test-Path "compile.log") { Copy-Item "compile.log" "build/compile.log" -Force }
+          if ($compileExit -ne 0) { throw "Falló la compilación de ME_Core_Menu.txt. Consulta los logs del artefacto." }
           if (-not (Test-Path "build/ME_Core_Menu.cs")) { throw "El compilador no generó el archivo .cs." }
 
+      - name: Upload compiler diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mundo-expandido-compiler-diagnostics
+          path: build/*.txt
+          if-no-files-found: ignore
+
       - name: Upload compiled CLEO script
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: mundo-expandido-cleo-build
