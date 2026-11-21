@@ -115,7 +115,7 @@ void PatchFrontend() {
     modes.parentEntry = 1;
 
     const MenuEntry layout = main.entries[0];
-    const char* keys[] = { "MEHIST", "MELIBRE", "MEADMIN", "MEPRONTO" };
+    const char* keys[] = { "MEHIST", "MELIBRE", "MEADMIN", "MEPRONT" };
     for (int i = 0; i < 4; ++i) {
         MenuEntry& entry = modes.entries[i];
         entry = layout;
