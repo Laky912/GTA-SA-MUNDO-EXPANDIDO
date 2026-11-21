@@ -11,6 +11,8 @@
 10@ = 0 // Estado del trabajo de reparto.
 11@ = 0.0 // Distancia acumulada del reparto.
 19@ = 0 // Avisos de progreso del reparto.
+20@ = 0 // Modo elegido en el selector del menu inicial.
+0AF0: 20@ = get_int_from_ini_file "CLEO\\ME_MODE.ini" section "mode" key "selected"
 
 :ME_MAIN
 wait 0
@@ -177,8 +179,26 @@ then
 end
 
 // F6 abre/cierra el panel de administrador.
+// Si el modo seleccionado no es administrador, F6 no abre el panel.
 if
-    0AB0: key_pressed 0x75
+    and
+        0AB0: key_pressed 0x75
+        20@ <> 2
+then
+    0ACD: show_text_highpriority "~r~El panel admin solo esta disponible en Libre + Admin" time 2500
+    :ME_WAIT_F6_LOCKED
+    wait 0
+    if
+        0AB0: key_pressed 0x75
+    then
+        jump @ME_WAIT_F6_LOCKED
+    end
+end
+
+if
+    and
+        0AB0: key_pressed 0x75
+        20@ == 2
 then
     if
         1@ == 0
