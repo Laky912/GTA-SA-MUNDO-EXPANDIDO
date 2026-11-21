@@ -55,11 +55,17 @@ SwitchToNewScreenFn SwitchToNewScreen =
 
 void WriteSelectedMode(int mode) {
     char path[MAX_PATH]{};
-    GetCurrentDirectoryA(MAX_PATH, path);
-    const size_t len = std::strlen(path);
-    if (len + sizeof("\\CLEO\\ME_MODE.ini") >= MAX_PATH)
+    const DWORD length = GetModuleFileNameA(nullptr, path, MAX_PATH);
+    if (length == 0 || length >= MAX_PATH)
         return;
-    std::strcat(path, "\\CLEO\\ME_MODE.ini");
+    char* separator = std::strrchr(path, '\\\\');
+    if (!separator)
+        return;
+    *(separator + 1) = '\\0';
+    constexpr char relativePath[] = "CLEO\\\\ME_MODE.ini";
+    if (std::strlen(path) + sizeof(relativePath) >= MAX_PATH)
+        return;
+    std::strcat(path, relativePath);
     char value[8]{};
     std::snprintf(value, sizeof(value), "%d", mode);
     WritePrivateProfileStringA("mode", "selected", value, path);
