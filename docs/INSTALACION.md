@@ -1,26 +1,31 @@
-# Instalación — GTA San Andreas: Mundo Expandido
+# Instalación - GTA San Andreas: Mundo Expandido
 
 ## Requisitos
-- Grand Theft Auto: San Andreas clásico para PC, versión 1.0 US.
+- Grand Theft Auto: San Andreas clásico para PC, versión **1.0 US**.
 - CLEO instalado y funcionando.
-- El juego debe iniciar sin errores antes de añadir este proyecto.
+- Mod Loader es recomendado para futuras fases, pero este módulo se instala directamente en CLEO.
 
-## Instalación del módulo actual
-1. Cierra GTA San Andreas.
-2. Abre la carpeta donde está instalado el juego.
-3. Abre la carpeta `CLEO` (debe existir por la instalación de CLEO).
-4. Copia `ME_Core_Menu.cs` dentro de esa carpeta.
-5. Inicia el juego y carga una partida de un jugador.
+## Instalar
+1. Haz una copia de seguridad de tu partida guardada.
+2. Extrae el ZIP.
+3. Copia `CLEO/ME_Core_Menu.cs` a la carpeta `CLEO` de tu instalación de GTA San Andreas.
+4. Inicia el juego y carga una partida.
 
-## Controles incluidos en este módulo
-- F5: mostrar/cerrar el aviso del panel principal.
-- F6: mostrar/cerrar el panel de administrador.
-- Con el panel de administrador abierto: 1 añade $10,000; 2 añade $100,000; 3 restaura salud y chaleco; 4 elimina el nivel de búsqueda; 5 añade $1,000,000.
-- ESC: cerrar los paneles.
+## Controles
+- **F5:** menú principal.
+  - 1: recuperar salud.
+  - 2: restaurar chaleco.
+  - 3: eliminar estrellas.
+  - 4: recibir $5,000.
+- **F6:** panel de administrador.
+  - 1: +$10,000.
+  - 2: +$100,000.
+  - 3: salud y chaleco.
+  - 4: quitar estrellas.
+  - 5: +$1,000,000.
+- **ESC:** cerrar los paneles.
 
-## Importante
-Este paquete inicial contiene únicamente el módulo de interfaz y administración. No representa todavía el mundo expandido completo: trabajos, economía persistente, propiedades, protagonistas, mapa ampliado y relaciones siguen pendientes de desarrollo.
+## Alcance real de este paquete
+Este es un **módulo inicial**, no el Mundo Expandido completo. Incluye el menú de acciones rápidas y el panel de administrador. Todavía no incluye el mapa ampliado, protagonistas intercambiables, trabajos, economía persistente, propiedades, negocios, vehículos nuevos ni sistema de relaciones.
 
-Haz una copia de seguridad de tu partida antes de probarlo. Si el juego se cierra o aparece un error, elimina `ME_Core_Menu.cs` de la carpeta `CLEO` y revisa `CLEO\cleo.log` o `.cleo.log`, según la versión de CLEO instalada.
-
-El archivo de configuración `data/mundo_expandido.ini` es una plantilla de ajustes; este módulo aún no la lee. No cambies sus valores esperando que modifiquen el comportamiento del script.
+La compilación CLEO se verifica automáticamente en GitHub Actions. Eso confirma que el script se genera, pero no sustituye una prueba dentro del juego. Si el juego se cierra o las teclas no responden, retira temporalmente `ME_Core_Menu.cs` de la carpeta CLEO y comparte el archivo `cleo.log`.
