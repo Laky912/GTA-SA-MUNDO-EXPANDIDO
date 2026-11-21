@@ -142,6 +142,8 @@ jobs:
           Copy-Item "src/maps/Costa-Brava.sa-map-studio.json" "$mapStage/project/Costa-Brava.sa-map-studio.json"
           Copy-Item "docs/MAPA.md" "$stage/docs/MAPA.md" -ErrorAction SilentlyContinue
           Copy-Item "docs/INSTALACION_MAPA.md" "$stage/docs/INSTALACION_MAPA.md"
+          Copy-Item "docs/SELECTOR_MODOS_FRONTEND.md" "$stage/docs/SELECTOR_MODOS_FRONTEND.md"
+          Copy-Item "src/asi/README.md" "$stage/docs/ASI-README.md"
           Copy-Item "README.md" "$stage/README_PROYECTO.md"
           Copy-Item "build/asi/_deps/minhook-src/LICENSE.txt" "$stage/docs/MINHOOK-LICENSE.txt"
           @(
