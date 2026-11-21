@@ -113,10 +113,10 @@
     },
     {
       "uid": "cbrv0005",
-      "model": 18296,
+      "model": 6094,
       "x": 225,
       "y": -2440,
-      "z": 3.5,
+      "z": 3.75,
       "rx": 0,
       "ry": 0,
       "rz": 0,
@@ -124,7 +124,7 @@
       "interior": -1,
       "streamDist": 0,
       "drawDist": 0,
-      "comment": "Loma rocosa con sendero",
+      "comment": "Loma verde con borde de tierra",
       "preComment": "",
       "blankLinesBefore": 0,
       "projectId": "",
@@ -136,6 +136,29 @@
     },
     {
       "uid": "cbrv0006",
+      "model": 6065,
+      "x": 225,
+      "y": -2750,
+      "z": 3.12,
+      "rx": 0,
+      "ry": 0,
+      "rz": 0,
+      "world": -1,
+      "interior": -1,
+      "streamDist": 0,
+      "drawDist": 0,
+      "comment": "Terraza costera de playa",
+      "preComment": "",
+      "blankLinesBefore": 0,
+      "projectId": "",
+      "raw": null,
+      "origin": null,
+      "materials": [],
+      "move": null,
+      "attach": null
+    },
+    {
+      "uid": "cbrv0007",
       "model": 4811,
       "x": 65,
       "y": -2890,
@@ -158,7 +181,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0007",
+      "uid": "cbrv0008",
       "model": 4812,
       "x": 215,
       "y": -2890,
@@ -181,7 +204,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0008",
+      "uid": "cbrv0009",
       "model": 4813,
       "x": 365,
       "y": -2890,
@@ -204,7 +227,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0009",
+      "uid": "cbrv0010",
       "model": 4814,
       "x": 65,
       "y": -2310,
@@ -227,7 +250,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0010",
+      "uid": "cbrv0011",
       "model": 4816,
       "x": 215,
       "y": -2310,
@@ -250,7 +273,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0011",
+      "uid": "cbrv0012",
       "model": 4896,
       "x": 365,
       "y": -2310,
@@ -273,7 +296,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0012",
+      "uid": "cbrv0013",
       "model": 4842,
       "x": 5,
       "y": -2450,
@@ -296,7 +319,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0013",
+      "uid": "cbrv0014",
       "model": 4843,
       "x": 5,
       "y": -2600,
@@ -319,7 +342,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0014",
+      "uid": "cbrv0015",
       "model": 4844,
       "x": 5,
       "y": -2750,
@@ -342,7 +365,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0015",
+      "uid": "cbrv0016",
       "model": 4847,
       "x": 445,
       "y": -2450,
@@ -365,7 +388,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0016",
+      "uid": "cbrv0017",
       "model": 4897,
       "x": 445,
       "y": -2600,
@@ -388,7 +411,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0017",
+      "uid": "cbrv0018",
       "model": 4898,
       "x": 445,
       "y": -2750,
@@ -411,7 +434,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0018",
+      "uid": "cbrv0019",
       "model": 4898,
       "x": 80,
       "y": -2470,
@@ -419,29 +442,6 @@
       "rx": 0,
       "ry": 0,
       "rz": 0,
-      "world": -1,
-      "interior": -1,
-      "streamDist": 0,
-      "drawDist": 0,
-      "comment": "Transicion de playa",
-      "preComment": "",
-      "blankLinesBefore": 0,
-      "projectId": "",
-      "raw": null,
-      "origin": null,
-      "materials": [],
-      "move": null,
-      "attach": null
-    },
-    {
-      "uid": "cbrv0019",
-      "model": 4898,
-      "x": 370,
-      "y": -2470,
-      "z": 3.56,
-      "rx": 0,
-      "ry": 0,
-      "rz": 180,
       "world": -1,
       "interior": -1,
       "streamDist": 0,
@@ -459,6 +459,29 @@
     {
       "uid": "cbrv0020",
       "model": 4898,
+      "x": 370,
+      "y": -2470,
+      "z": 3.56,
+      "rx": 0,
+      "ry": 0,
+      "rz": 180,
+      "world": -1,
+      "interior": -1,
+      "streamDist": 0,
+      "drawDist": 0,
+      "comment": "Transicion de playa",
+      "preComment": "",
+      "blankLinesBefore": 0,
+      "projectId": "",
+      "raw": null,
+      "origin": null,
+      "materials": [],
+      "move": null,
+      "attach": null
+    },
+    {
+      "uid": "cbrv0021",
+      "model": 4898,
       "x": 80,
       "y": -2730,
       "z": 3.56,
@@ -480,7 +503,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0021",
+      "uid": "cbrv0022",
       "model": 4898,
       "x": 370,
       "y": -2730,
@@ -503,7 +526,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0022",
+      "uid": "cbrv0023",
       "model": 4898,
       "x": 225,
       "y": -2330,
@@ -526,7 +549,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0023",
+      "uid": "cbrv0024",
       "model": 4898,
       "x": 225,
       "y": -2870,
@@ -549,7 +572,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0024",
+      "uid": "cbrv0025",
       "model": 4837,
       "x": 75,
       "y": -2600,
@@ -572,7 +595,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0025",
+      "uid": "cbrv0026",
       "model": 4837,
       "x": 225,
       "y": -2600,
@@ -595,7 +618,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0026",
+      "uid": "cbrv0027",
       "model": 4837,
       "x": 375,
       "y": -2600,
@@ -618,7 +641,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0027",
+      "uid": "cbrv0028",
       "model": 6050,
       "x": 300,
       "y": -2445,
@@ -641,7 +664,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0028",
+      "uid": "cbrv0029",
       "model": 3615,
       "x": 120,
       "y": -2445,
@@ -664,7 +687,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0029",
+      "uid": "cbrv0030",
       "model": 3406,
       "x": 420,
       "y": -2650,
@@ -687,7 +710,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0030",
+      "uid": "cbrv0031",
       "model": 620,
       "x": 55,
       "y": -2475,
@@ -710,7 +733,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0031",
+      "uid": "cbrv0032",
       "model": 620,
       "x": 95,
       "y": -2525,
@@ -733,7 +756,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0032",
+      "uid": "cbrv0033",
       "model": 620,
       "x": 350,
       "y": -2475,
@@ -756,7 +779,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0033",
+      "uid": "cbrv0034",
       "model": 620,
       "x": 395,
       "y": -2535,
@@ -779,7 +802,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0034",
+      "uid": "cbrv0035",
       "model": 620,
       "x": 105,
       "y": -2760,
@@ -802,7 +825,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0035",
+      "uid": "cbrv0036",
       "model": 620,
       "x": 350,
       "y": -2760,
@@ -825,7 +848,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0036",
+      "uid": "cbrv0037",
       "model": 1255,
       "x": 270,
       "y": -2460,
@@ -848,7 +871,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0037",
+      "uid": "cbrv0038",
       "model": 1255,
       "x": 290,
       "y": -2465,
@@ -871,7 +894,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0038",
+      "uid": "cbrv0039",
       "model": 1255,
       "x": 310,
       "y": -2465,
@@ -894,7 +917,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0039",
+      "uid": "cbrv0040",
       "model": 1645,
       "x": 285,
       "y": -2480,
@@ -917,7 +940,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0040",
+      "uid": "cbrv0041",
       "model": 1646,
       "x": 315,
       "y": -2480,
@@ -940,7 +963,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0041",
+      "uid": "cbrv0042",
       "model": 896,
       "x": -8,
       "y": -2470,
@@ -963,7 +986,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0042",
+      "uid": "cbrv0043",
       "model": 897,
       "x": -10,
       "y": -2590,
@@ -986,7 +1009,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0043",
+      "uid": "cbrv0044",
       "model": 898,
       "x": -5,
       "y": -2730,
@@ -1009,7 +1032,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0044",
+      "uid": "cbrv0045",
       "model": 899,
       "x": 460,
       "y": -2460,
@@ -1032,7 +1055,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0045",
+      "uid": "cbrv0046",
       "model": 900,
       "x": 462,
       "y": -2600,
@@ -1055,7 +1078,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0046",
+      "uid": "cbrv0047",
       "model": 901,
       "x": 458,
       "y": -2760,
@@ -1078,7 +1101,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0047",
+      "uid": "cbrv0048",
       "model": 896,
       "x": 90,
       "y": -2920,
@@ -1101,7 +1124,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0048",
+      "uid": "cbrv0049",
       "model": 897,
       "x": 250,
       "y": -2920,
@@ -1124,7 +1147,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0049",
+      "uid": "cbrv0050",
       "model": 898,
       "x": 390,
       "y": -2920,
@@ -1147,7 +1170,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0050",
+      "uid": "cbrv0051",
       "model": 899,
       "x": 90,
       "y": -2280,
@@ -1170,7 +1193,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0051",
+      "uid": "cbrv0052",
       "model": 900,
       "x": 250,
       "y": -2280,
@@ -1193,7 +1216,7 @@
       "attach": null
     },
     {
-      "uid": "cbrv0052",
+      "uid": "cbrv0053",
       "model": 901,
       "x": 390,
       "y": -2280,
