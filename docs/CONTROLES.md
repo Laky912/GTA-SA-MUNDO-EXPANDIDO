@@ -14,11 +14,14 @@ Objetivo: GTA San Andreas clásico para PC, SA 1.0 US.
 ## Trabajo de reparto
 1. Súbete a un vehículo.
 2. Pulsa **F7** para iniciar el trabajo.
-3. Conduce hasta acumular 750 metros recorridos.
-4. Recibirás **$2,500** al completar la distancia.
-5. Pulsa **F7** otra vez para cancelar.
+3. Conduce hasta acumular 750 metros.
+4. Recibirás avisos al alcanzar 250 y 500 metros.
+5. Al completar los 750 metros recibirás **$2,500**.
+6. Pulsa **F7** otra vez para cancelar.
 
-La distancia solo se acumula mientras conduces. Si bajas del vehículo, el trabajo queda pausado.
+La distancia solo se acumula mientras conduces. Si bajas del vehículo, el trabajo pausa el conteo. Se descartan saltos de posición extremadamente grandes entre fotogramas para evitar completar el trabajo con teletransportes.
+
+Este prototipo todavía no tiene paquete físico, destino concreto, NPC cliente, ruta GPS ni varios tipos de reparto.
 
 ## Panel de administrador
 - **F6:** abrir o cerrar el panel de administrador.
@@ -31,5 +34,5 @@ La distancia solo se acumula mientras conduces. Si bajas del vehículo, el traba
 
 Las teclas numéricas ejecutan acciones únicamente cuando el panel correspondiente está abierto. El menú principal y el panel de administrador se excluyen entre sí.
 
-## Estado
-El menú, las acciones rápidas, el panel de administrador y el primer prototipo de reparto están incluidos en la fuente CLEO. La compilación automática valida sintaxis y generación del archivo, pero todas estas funciones todavía requieren pruebas dentro de GTA SA 1.0 US. El trabajo de reparto es una actividad básica por distancia recorrida; todavía no usa pasajeros, paquetes, destinos ni marcadores.
+## Estado de verificación
+El menú, las acciones rápidas, el panel de administrador y el prototipo de reparto están incluidos en la fuente CLEO. La compilación automática comprueba generación del binario; las funciones requieren pruebas dentro de GTA SA 1.0 US antes de considerarse verificadas.
