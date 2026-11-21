@@ -18,6 +18,7 @@ constexpr int kNewGamePage = 1;
 
 enum MenuAction : uint8_t {
     ACTION_NOTHING = 0,
+    ACTION_BACK = 2,
     ACTION_CHANGEMENU = 5,
     ACTION_SKIP = 20
 };
@@ -113,7 +114,7 @@ void PatchFrontend() {
     for (int i = 0; i < 4; ++i) {
         MenuEntry& entry = modes.entries[i];
         entry = layout;
-        entry.action = (i == 3) ? ACTION_SKIP : ACTION_NOTHING;
+        entry.action = (i == 3) ? ACTION_SKIP : ACTION_BACK;
         entry.targetMenu = 0;
         entry.saveSlot = 0;
         entry.pad = 0;
