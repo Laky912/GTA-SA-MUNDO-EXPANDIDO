@@ -2,7 +2,7 @@
 
 1. Cierra GTA San Andreas.
 2. Extrae el ZIP completo directamente en la carpeta principal de GTA San Andreas, donde está `gta_sa.exe`.
-3. Mod Loader cargará el IPL desde `modloader/GTA-SA-Mundo-Expandido-Costa-Brava/data/maps/` usando la línea `IPL DATA\\MAPS\\SAMSP_MUNDO_EXPANDIDO_CBRV.IPL` del `README.txt` incluido.
+3. Mod Loader cargará el IPL desde `modloader/GTA-SA-Mundo-Expandido-Costa-Brava/data/maps/` usando la línea `IPL DATA\MAPS\SAMSP_MUNDO_EXPANDIDO_CBRV.IPL` del `README.txt` incluido.
 4. Para el selector del menú inicial, instala `MundoExpandido.asi` en la carpeta principal del juego y `CLEO/CLEO_TEXT/ME_MODOS.fxt` en esa ruta. Para el panel de funciones opcional, copia `CLEO/ME_Core_Menu.cs` a la carpeta CLEO.
 
 **Desinstalación:** elimina `modloader/GTA-SA-Mundo-Expandido-Costa-Brava`. Si instalaste el menú opcional, elimina también `MundoExpandido.asi`, `CLEO/CLEO_TEXT/ME_MODOS.fxt` y `CLEO/ME_Core_Menu.cs`.
