@@ -110,7 +110,7 @@ jobs:
               $count++
             }
           }
-          if ($inside -or $count -ne 53) { throw "IPL incompleto o cantidad inesperada: $count" }
+          if ($inside -or $count -ne 73) { throw "IPL incompleto o cantidad inesperada: $count" }
           "Map IPL: $count registros validados" | Out-File "build/map-validation.txt"
 
       - name: Package complete project
