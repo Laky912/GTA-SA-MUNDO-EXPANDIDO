@@ -1,17 +1,21 @@
-# Instalación de Costa Brava
+# Costa Brava - primera región
 
-1. Cierra GTA San Andreas.
-2. Abre la carpeta donde está instalado GTA San Andreas clásico PC 1.0 US.
-3. Entra en `modloader`.
-4. Copia allí la carpeta `GTA-SA-Mundo-Expandido-Costa-Brava` completa, sin sacar sus subcarpetas.
-5. Inicia el juego. El Mod Loader leerá la directiva IPL del `README.txt` y cargará la región.
+La primera zona del mapa ya tiene un IPL con **53 instancias** de modelos originales de GTA San Andreas: cuatro plataformas de terreno conectadas, una loma verde con borde de tierra, una terraza costera, tramos de costa, carretera, cabañas, embarcadero, palmeras, mobiliario y rocas de orilla.
 
-**Desinstalación:** cierra el juego y elimina esa carpeta de `modloader`. No se reemplazan archivos originales.
+La ubicación prevista es el mar al sur de Los Santos, centrada aproximadamente en X=225, Y=-2600.
 
-## Requisitos
-- GTA San Andreas clásico PC 1.0 US.
-- Mod Loader.
-- No necesita CLEO para cargar el mapa.
+## Instalación
+1. Cierra el juego.
+2. Extrae el ZIP completo en la carpeta principal de GTA San Andreas.
+3. Mod Loader cargará `modloader/GTA-SA-Mundo-Expandido-Costa-Brava`.
+4. Para el menú opcional, copia `CLEO/ME_Core_Menu.cs` a la carpeta CLEO.
 
-## Prueba y límites
-La primera región contiene 52 instancias de modelos que ya existen en el juego base. La geometría y las colisiones dependen de esos modelos originales. El IPL y el paquete pasan validaciones estructurales, pero todavía hace falta probar dentro del juego la posición de las piezas, sus uniones, el agua, el streaming y el rendimiento. Haz copia de seguridad de tus partidas.
+## Archivos
+- `src/maps/costa_brava.ipl`: IPL textual.
+- `src/maps/Costa-Brava.sa-map-studio.json`: proyecto editable de SA Map Studio.
+- `docs/INSTALACION_MAPA.md`: guía del mapa.
+
+## Validación
+El IPL tiene 53 registros, 11 campos por instancia y cuaterniones normalizados. Los modelos utilizados existen en el juego base y conservan sus colisiones originales. No se distribuyen DFF/TXD/COL del juego.
+
+No se ha ejecutado GTA SA en este entorno. La altura y unión de piezas, colisiones, agua, streaming, LOD, acceso por barco y rendimiento necesitan validación dentro del juego. Esta es la primera región, no la expansión completa.
