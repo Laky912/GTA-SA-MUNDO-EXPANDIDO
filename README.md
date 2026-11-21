@@ -4,7 +4,7 @@ Proyecto de modificación original para **GTA San Andreas clásico (PC), versió
 
 ## Prioridad principal: ampliar el mapa
 
-El objetivo central es añadir nuevas regiones explorables conservando el mapa original. Ya se preparó la primera región, **Costa Brava**, como un IPL de 53 instancias de modelos y colisiones del juego base: terreno arenoso, loma verde, terraza de playa, costa, carretera, cabañas, embarcadero y vegetación.
+El objetivo central es añadir nuevas regiones explorables conservando el mapa original. Ya se preparó la primera región, **Costa Brava**, con 60 instancias principales y 13 LOD enlazados: terreno arenoso, loma verde, terraza de playa, costa, carretera, cinco tramos de puente a Los Santos, cabañas, embarcadero y vegetación.
 
 ## Paquete de la primera región
 
@@ -34,7 +34,7 @@ El objetivo central es añadir nuevas regiones explorables conservando el mapa o
 
 ## Estado real
 
-**Costa Brava ya tiene un IPL estructurado y un paquete instalable preliminar.** La estructura del IPL y sus 53 instancias se validaron, pero aún no se ha ejecutado GTA SA para comprobar alturas, uniones, colisiones, agua, LOD y rendimiento. Por eso esta primera región no se considera validada dentro del juego ni la expansión completa está terminada.
+**Costa Brava ya tiene un IPL estructurado y un paquete instalable preliminar.** El IPL contiene 73 registros y sus enlaces LOD se validaron estructuralmente, pero aún no se ha ejecutado GTA SA para comprobar alturas, uniones, colisiones, agua, LOD y rendimiento. Por eso esta primera región no se considera validada dentro del juego ni la expansión completa está terminada.
 
 El módulo CLEO inicial (menú, panel administrativo y reparto) sigue siendo secundario respecto al mapa.
 
