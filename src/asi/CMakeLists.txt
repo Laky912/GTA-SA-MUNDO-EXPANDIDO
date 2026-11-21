@@ -16,9 +16,8 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(minhook)
 
-add_library(MundoExpandidoASI SHARED src/asi/MenuModes.cpp)
+add_library(MundoExpandidoASI SHARED MenuModes.cpp)
 target_compile_features(MundoExpandidoASI PRIVATE cxx_std_17)
-target_compile_definitions(MundoExpandidoASI PRIVATE WIN32_LEAN_AND_MEAN)
 target_link_libraries(MundoExpandidoASI PRIVATE minhook)
 set_target_properties(MundoExpandidoASI PROPERTIES
   PREFIX ""
