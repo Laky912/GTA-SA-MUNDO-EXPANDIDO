@@ -10,6 +10,7 @@
 1@ = 0 // Panel admin: 0 cerrado, 1 abierto.
 10@ = 0 // Estado del trabajo de reparto.
 11@ = 0.0 // Distancia acumulada del reparto.
+19@ = 0 // Avisos de progreso del reparto.
 
 :ME_MAIN
 wait 0
@@ -112,6 +113,7 @@ then
         then
             10@ = 1
             11@ = 0.0
+            19@ = 0
             00A0: store_actor $PLAYER_ACTOR position_to 12@ 13@ 14@
             0ACD: show_text_highpriority "~b~REPARTO INICIADO~n~~w~Conduce 750 metros para cobrar $2,500" time 4000
         else
@@ -139,7 +141,29 @@ then
         00DF: actor $PLAYER_ACTOR driving
     then
         050A: get_distance_between_coords_2d 15@ 16@ 12@ 13@ store_to 18@
-        005B: 11@ += 18@
+        // Ignora saltos imposibles entre fotogramas para evitar completar
+        // el trabajo mediante teletransportes o cambios bruscos de posicion.
+        if
+            18@ < 100.0
+        then
+            005B: 11@ += 18@
+        end
+        if
+            and
+                11@ >= 250.0
+                19@ == 0
+        then
+            19@ = 1
+            0ACD: show_text_highpriority "~y~Reparto: 250 / 750 metros" time 1800
+        end
+        if
+            and
+                11@ >= 500.0
+                19@ == 1
+        then
+            19@ = 2
+            0ACD: show_text_highpriority "~y~Reparto: 500 / 750 metros" time 1800
+        end
         if
             11@ >= 750.0
         then
