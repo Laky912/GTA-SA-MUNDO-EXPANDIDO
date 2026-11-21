@@ -58,11 +58,11 @@ void WriteSelectedMode(int mode) {
     const DWORD length = GetModuleFileNameA(nullptr, path, MAX_PATH);
     if (length == 0 || length >= MAX_PATH)
         return;
-    char* separator = std::strrchr(path, '\\\\');
+    char* separator = std::strrchr(path, '\\');
     if (!separator)
         return;
-    *(separator + 1) = '\\0';
-    constexpr char relativePath[] = "CLEO\\\\ME_MODE.ini";
+    *(separator + 1) = '\0';
+    constexpr char relativePath[] = "CLEO\\ME_MODE.ini";
     if (std::strlen(path) + sizeof(relativePath) >= MAX_PATH)
         return;
     std::strcat(path, relativePath);
