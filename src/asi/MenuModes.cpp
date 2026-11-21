@@ -52,8 +52,6 @@ ProcessMenuOptionsFn g_originalProcessMenuOptions = nullptr;
 SwitchToNewScreenFn SwitchToNewScreen =
     reinterpret_cast<SwitchToNewScreenFn>(kSwitchToNewScreenAddress);
 
-bool g_patched = false;
-
 void WriteSelectedMode(int mode) {
     char path[MAX_PATH]{};
     GetCurrentDirectoryA(MAX_PATH, path);
@@ -82,7 +80,6 @@ void PatchFrontend() {
         return;
 
     if (std::strncmp(main.entries[1].name, "MEMODOS", 7) == 0) {
-        g_patched = true;
         return;
     }
 
@@ -124,7 +121,6 @@ void PatchFrontend() {
         entry.y = static_cast<uint16_t>(layout.y + i * 22);
     }
 
-    g_patched = true;
 }
 
 void __fastcall HookInitialise(void* self, void*) {
