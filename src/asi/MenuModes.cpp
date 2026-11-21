@@ -155,8 +155,10 @@ void __fastcall HookProcessMenuOptions(
         return;
     }
 
-    if (!enter)
+    if (!enter) {
+        g_originalProcessMenuOptions(self, input, exit, enter);
         return;
+    }
 
     if (selected == 0) {
         WriteSelectedMode(0); // Historia
