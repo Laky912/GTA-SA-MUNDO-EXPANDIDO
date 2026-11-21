@@ -28,7 +28,7 @@
 
 ## Interfaz
 
-La tecla F5 queda reservada para el panel del proyecto. El primer archivo fuente establece el hilo y el manejo básico de teclas. Los botones y submenús se conectarán a sistemas reales conforme se integren; no se mostrarán opciones jugables que todavía no tengan implementación.
+El plugin ASI añade MODOS al frontend inicial y conserva el flujo nativo de iniciar/cargar partida. F5 abre el panel general CLEO y F6 el panel administrativo, restringido al modo Libre + Admin. El modo libre todavía no cancela misiones automáticamente y Mundo Expandido permanece bloqueado hasta validar Costa Brava dentro del juego.
 
 ## Estado de verificación
 
