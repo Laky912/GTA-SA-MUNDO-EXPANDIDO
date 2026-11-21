@@ -2,10 +2,10 @@
 
 1. Cierra GTA San Andreas.
 2. Extrae el ZIP completo directamente en la carpeta principal de GTA San Andreas, donde está `gta_sa.exe`.
-3. Mod Loader cargará el IPL desde `modloader/GTA-SA-Mundo-Expandido-Costa-Brava`.
-4. Para el menú opcional, copia `CLEO/ME_Core_Menu.cs` a la carpeta CLEO.
+3. Mod Loader cargará el IPL desde `modloader/GTA-SA-Mundo-Expandido-Costa-Brava/data/maps/` usando la línea `IPL DATA\\MAPS\\SAMSP_MUNDO_EXPANDIDO_CBRV.IPL` del `README.txt` incluido.
+4. Para el selector del menú inicial, instala `MundoExpandido.asi` en la carpeta principal del juego y `CLEO/CLEO_TEXT/ME_MODOS.fxt` en esa ruta. Para el panel de funciones opcional, copia `CLEO/ME_Core_Menu.cs` a la carpeta CLEO.
 
-**Desinstalación:** elimina `modloader/GTA-SA-Mundo-Expandido-Costa-Brava`. Si instalaste el menú opcional, elimina también `CLEO/ME_Core_Menu.cs`.
+**Desinstalación:** elimina `modloader/GTA-SA-Mundo-Expandido-Costa-Brava`. Si instalaste el menú opcional, elimina también `MundoExpandido.asi`, `CLEO/CLEO_TEXT/ME_MODOS.fxt` y `CLEO/ME_Core_Menu.cs`.
 
 ## Qué incluye el mapa
 
@@ -17,7 +17,8 @@
 ## Requisitos
 - GTA San Andreas clásico PC 1.0 US.
 - Mod Loader para la expansión geográfica.
-- CLEO solo para el menú opcional.
+- ASI Loader x86 para el selector del frontend.
+- CLEO 4 para el panel opcional.
 
 ## Validación y límites
 El IPL contiene 73 registros y pasó validación estructural: 11 campos por instancia, cuaterniones normalizados y enlaces LOD dentro del archivo. No se ha ejecutado GTA SA en este entorno; todavía hay que comprobar alturas, uniones, colisiones, agua, puente, streaming y rendimiento dentro del juego. Haz copia de seguridad de tus partidas.
