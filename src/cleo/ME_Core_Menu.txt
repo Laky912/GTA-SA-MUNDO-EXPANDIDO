@@ -8,8 +8,8 @@
 03A4: name_thread 'ME_CORE'
 0@ = 0 // Menu principal: 0 cerrado, 1 abierto.
 1@ = 0 // Panel admin: 0 cerrado, 1 abierto.
-2@ = 0 // Estado del trabajo de reparto.
-8@ = 0.0 // Distancia acumulada del reparto.
+10@ = 0 // Estado del trabajo de reparto.
+11@ = 0.0 // Distancia acumulada del reparto.
 
 :ME_MAIN
 wait 0
@@ -105,20 +105,20 @@ if
     0AB0: key_pressed 0x76
 then
     if
-        2@ == 0
+        10@ == 0
     then
         if
             00DF: actor $PLAYER_ACTOR driving
         then
-            2@ = 1
-            8@ = 0.0
-            00A0: store_actor $PLAYER_ACTOR position_to 5@ 6@ 7@
+            10@ = 1
+            11@ = 0.0
+            00A0: store_actor $PLAYER_ACTOR position_to 12@ 13@ 14@
             0ACD: show_text_highpriority "~b~REPARTO INICIADO~n~~w~Conduce 750 metros para cobrar $2,500" time 4000
         else
             0ACD: show_text_highpriority "~r~Debes estar dentro de un vehiculo" time 2500
         end
     else
-        2@ = 0
+        10@ = 0
         0ACD: show_text_highpriority "Trabajo de reparto cancelado" time 2000
     end
     :ME_WAIT_F7
@@ -132,24 +132,24 @@ end
 
 // Seguimiento de distancia del trabajo activo.
 if
-    2@ == 1
+    10@ == 1
 then
+    00A0: store_actor $PLAYER_ACTOR position_to 15@ 16@ 17@
     if
         00DF: actor $PLAYER_ACTOR driving
     then
-        00A0: store_actor $PLAYER_ACTOR position_to 2@ 3@ 4@
-        050A: get_distance_between_coords_2d 2@ 3@ 5@ 6@ store_to 9@
-        005B: 8@ += 9@
-        0087: 5@ = 2@
-        0087: 6@ = 3@
+        050A: get_distance_between_coords_2d 15@ 16@ 12@ 13@ store_to 18@
+        005B: 11@ += 18@
         if
-            8@ >= 750.0
+            11@ >= 750.0
         then
-            2@ = 0
+            10@ = 0
             0109: player $PLAYER_CHAR money += 2500
             0ACD: show_text_highpriority "~g~Reparto completado~n~~w~Has ganado $2,500" time 4000
         end
     end
+    0087: 12@ = 15@
+    0087: 13@ = 16@
 end
 
 // F6 abre/cierra el panel de administrador.
