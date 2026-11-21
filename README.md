@@ -4,13 +4,19 @@ Proyecto de modificación original para **GTA San Andreas clásico (PC), versió
 
 ## Prioridad principal: ampliar el mapa
 
-El objetivo central es añadir nuevas regiones explorables al mapa original, conservando Los Santos, San Fierro, Las Venturas y el campo. La primera región en diseño es una zona insular costera con terreno y colisión propios, carreteras, un pequeño núcleo urbano y conexión con el continente.
+El objetivo central es añadir nuevas regiones explorables conservando el mapa original. Ya se preparó la primera región, **Costa Brava**, como un IPL de 52 instancias de modelos y colisiones del juego base: terreno arenoso, loma rocosa, costa, carretera, cabañas, embarcadero y vegetación.
 
-No se considerará una expansión real limitarse a agrandar el radar o colocar objetos decorativos sobre el agua: hacen falta geometría, colisiones y archivos de mapa compatibles.
+## Paquete de la primera región
+
+- Instalación mediante Mod Loader, sin reemplazar archivos originales.
+- Proyecto editable de SA Map Studio en modo Singleplayer.
+- Guía: [docs/INSTALACION_MAPA.md](docs/INSTALACION_MAPA.md).
+- IPL fuente: [src/maps/costa_brava.ipl](src/maps/costa_brava.ipl).
+- Proyecto editable: [src/maps/Costa-Brava.sa-map-studio.json](src/maps/Costa-Brava.sa-map-studio.json).
 
 ## Características previstas
 
-- Nuevas regiones geográficas conectadas al mapa original.
+- Más regiones geográficas conectadas al mapa original.
 - Dos protagonistas originales adultos, intercambiables.
 - Actividades: taxi, policía, transporte, reparto y carreras.
 - Economía, encargos, propiedades y negocios.
@@ -21,16 +27,16 @@ No se considerará una expansión real limitarse a agrandar el radar o colocar o
 ## Compatibilidad y rendimiento
 
 - Objetivo: GTA San Andreas clásico para PC, ejecutable 1.0 US.
-- Instalación existente: CLEO, Mod Loader y SilentPatch.
+- Instalación prevista: Mod Loader; CLEO solo para sistemas interactivos que lo necesiten.
 - Equipo objetivo: 4 GB de RAM.
 - Prioridad: modelos y texturas ligeros, LOD y carga controlada.
 - No se requieren ENB ni paquetes de texturas HD.
 
 ## Estado real
 
-**La expansión geográfica todavía no está construida.** El repositorio contiene el módulo CLEO inicial y documentación de diseño. Ese módulo incluye un menú, un panel administrativo y un prototipo de reparto; no constituye el objetivo principal ni un mapa ampliado.
+**Costa Brava ya tiene un IPL estructurado y un paquete instalable preliminar.** La estructura del IPL y sus 52 instancias se validaron, pero aún no se ha ejecutado GTA SA para comprobar alturas, uniones, colisiones, agua, LOD y rendimiento. Por eso esta primera región no se considera validada dentro del juego ni la expansión completa está terminada.
 
-El desarrollo se reorienta para priorizar la primera región geográfica y su integración real mediante Mod Loader. No se marcará como terminada hasta tener terreno, colisiones, IDE/IPL y pruebas dentro del juego.
+El módulo CLEO inicial (menú, panel administrativo y reparto) sigue siendo secundario respecto al mapa.
 
 ## Derechos
 
