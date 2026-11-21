@@ -14,7 +14,7 @@ El terreno y las colisiones los aportan los DFF/COL ya presentes en la instalaci
 - `docs/INSTALACION_MAPA.md`: instalación y desinstalación.
 
 ## Integración
-El paquete coloca el IPL bajo `objects/` y usa la directiva `IPL DATA\\MAPS\\SAMSP_MUNDO_EXPANDIDO_CBRV.IPL` en su README para que Mod Loader lo incorpore a `gta.dat`. No se reemplaza `gta.dat` ni se editan los mapas originales.
+El paquete coloca el IPL bajo `data/maps/` y usa la directiva `IPL DATA\\MAPS\\SAMSP_MUNDO_EXPANDIDO_CBRV.IPL` en su README para que Mod Loader lo incorpore a `gta.dat`. No se reemplaza `gta.dat` ni se editan los mapas originales.
 
 ## Estado honesto
 El IPL se validó estructuralmente: 73 registros, 11 campos por instancia, cuaterniones normalizados y enlaces LOD dentro del rango del propio IPL. Los IDs y nombres se contrastaron con el catálogo de modelos de GTA SA. **No se ha ejecutado el juego en este entorno**; por tanto, la colocación, colisiones, uniones visuales, alturas del puente, agua, streaming y FPS aún requieren prueba runtime y ajustes.
