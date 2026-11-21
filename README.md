@@ -14,6 +14,12 @@ El objetivo central es añadir nuevas regiones explorables conservando el mapa o
 - IPL fuente: [src/maps/costa_brava.ipl](src/maps/costa_brava.ipl).
 - Proyecto editable: [src/maps/Costa-Brava.sa-map-studio.json](src/maps/Costa-Brava.sa-map-studio.json).
 
+## Selector de modos en el menú inicial
+
+Se está investigando una integración nativa mediante plugin ASI para añadir **MODOS** al frontend del juego, conservando Iniciar partida y Cargar partida. La investigación de las estructuras y puntos de entrada está documentada en [docs/SELECTOR_MODOS_FRONTEND.md](docs/SELECTOR_MODOS_FRONTEND.md).
+
+**Importante:** el selector ASI todavía no está implementado ni compilado. El menú CLEO F5 existente no modifica la pantalla inicial y no debe confundirse con esta función.
+
 ## Características previstas
 
 - Más regiones geográficas conectadas al mapa original.
