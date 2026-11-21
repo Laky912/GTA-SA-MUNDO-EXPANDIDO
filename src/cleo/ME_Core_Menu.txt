@@ -178,6 +178,13 @@ then
     0087: 13@ = 16@
 end
 
+// Actualiza el modo al pulsar F6; el selector se usa antes de cargar la partida.
+if
+    0AB0: key_pressed 0x75
+then
+    0AF0: 20@ = get_int_from_ini_file "CLEO\ME_MODE.ini" section "mode" key "selected"
+end
+
 // F6 abre/cierra el panel de administrador.
 // Si el modo seleccionado no es administrador, F6 no abre el panel.
 if
