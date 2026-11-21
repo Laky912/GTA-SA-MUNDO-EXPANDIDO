@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "src/cleo/**"
+      - "src/asi/**"
       - "src/maps/**"
       - "docs/**"
       - "README.md"
@@ -91,6 +92,19 @@ jobs:
           Get-ChildItem build | Format-Table Name,Length
           if (-not (Test-Path "build/ME_Core_Menu.cs")) { throw "El compilador no generó el archivo .cs." }
 
+      - name: Build frontend ASI plugin (Win32)
+        shell: pwsh
+        run: |
+          cmake -S src/asi -B build/asi -A Win32
+          cmake --build build/asi --config Release
+          $asi = Get-ChildItem "build/asi" -Filter "MundoExpandido.asi" -Recurse | Select-Object -First 1
+          if (-not $asi -or $asi.Length -lt 4096) {
+            throw "No se generó un plugin ASI x86 válido."
+          }
+          New-Item -ItemType Directory -Force -Path "build/asi-output" | Out-Null
+          Copy-Item $asi.FullName "build/asi-output/MundoExpandido.asi"
+          "ASI build: $($asi.Length) bytes" | Out-File "build/asi-result.txt"
+
       - name: Validate map IPL structure
         shell: pwsh
         run: |
@@ -119,8 +133,10 @@ jobs:
         run: |
           $stage = "dist/GTA-SA-Mundo-Expandido"
           $mapStage = "$stage/modloader/GTA-SA-Mundo-Expandido-Costa-Brava"
-          New-Item -ItemType Directory -Force -Path "$stage/CLEO", "$stage/docs", "$mapStage/objects", "$mapStage/project" | Out-Null
+          New-Item -ItemType Directory -Force -Path "$stage/CLEO/CLEO_TEXT", "$stage/docs", "$mapStage/objects", "$mapStage/project" | Out-Null
           Copy-Item "build/ME_Core_Menu.cs" "$stage/CLEO/ME_Core_Menu.cs"
+          Copy-Item "build/asi-output/MundoExpandido.asi" "$stage/MundoExpandido.asi"
+          Copy-Item "src/asi/ME_MODOS.fxt" "$stage/CLEO/CLEO_TEXT/ME_MODOS.fxt"
           Copy-Item "src/maps/costa_brava.ipl" "$mapStage/objects/samsp_mundo_expandido_cbrv.ipl"
           Copy-Item "src/maps/Costa-Brava.sa-map-studio.json" "$mapStage/project/Costa-Brava.sa-map-studio.json"
           Copy-Item "docs/MAPA.md" "$stage/docs/MAPA.md" -ErrorAction SilentlyContinue
@@ -136,12 +152,12 @@ jobs:
             "",
             "Extrae el contenido del ZIP en la carpeta principal del juego.",
             "El mapa se instala en modloader\GTA-SA-Mundo-Expandido-Costa-Brava.",
-            "El menu CLEO es opcional: copia CLEO\ME_Core_Menu.cs a la carpeta CLEO del juego.",
+            "El menu del frontend requiere MundoExpandido.asi en la carpeta principal del juego y ME_MODOS.fxt en CLEO\CLEO_TEXT.\n            El panel CLEO es opcional: copia CLEO\ME_Core_Menu.cs a la carpeta CLEO del juego.",
             "",
-            "Requisitos: GTA SA clasico PC 1.0 US; Mod Loader para el mapa; CLEO para el menu opcional.",
-            "Desinstalacion: elimina la carpeta modloader\GTA-SA-Mundo-Expandido-Costa-Brava y, si instalaste el menu, CLEO\ME_Core_Menu.cs.",
+            "Requisitos: GTA SA clasico PC 1.0 US; ASI Loader x86; CLEO 4; Mod Loader para el mapa.",
+            "Desinstalacion: elimina MundoExpandido.asi, CLEO\CLEO_TEXT\ME_MODOS.fxt, CLEO\ME_Core_Menu.cs y la carpeta modloader\GTA-SA-Mundo-Expandido-Costa-Brava.",
             "",
-            "El IPL se valida estructuralmente, pero la colocacion, colisiones, agua, LOD y rendimiento requieren prueba dentro del juego."
+            "El plugin ASI se compila para Win32 y usa direcciones del ejecutable GTA SA 1.0 US. El menu y los modos requieren prueba dentro del juego. El IPL se valida estructuralmente, pero la colocacion, colisiones, agua, LOD y rendimiento tambien requieren prueba in-game."
           ) | Set-Content -Encoding UTF8 "$stage/INSTALACION.md"
           Compress-Archive -Path "$stage/*" -DestinationPath "dist/GTA-SA-Mundo-Expandido-completo.zip" -Force
 
