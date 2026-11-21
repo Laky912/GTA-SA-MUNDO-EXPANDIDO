@@ -12,7 +12,7 @@
 11@ = 0.0 // Distancia acumulada del reparto.
 19@ = 0 // Avisos de progreso del reparto.
 20@ = 0 // Modo elegido en el selector del menu inicial.
-0AF0: 20@ = get_int_from_ini_file "CLEO\\ME_MODE.ini" section "mode" key "selected"
+0AF0: 20@ = get_int_from_ini_file "CLEO\ME_MODE.ini" section "mode" key "selected"
 
 :ME_MAIN
 wait 0
