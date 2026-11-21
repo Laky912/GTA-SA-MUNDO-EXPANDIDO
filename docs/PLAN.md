@@ -4,7 +4,7 @@ La prioridad principal del proyecto es **agrandar el mundo explorable de GTA San
 
 ## Orden real de trabajo
 
-1. **Expansión geográfica — primera entrega construida:** Costa Brava, con IPL de 52 instancias de modelos del juego base y proyecto editable de SA Map Studio. Falta validación dentro del juego y ajuste de alturas/uniones.
+1. **Expansión geográfica — primera entrega construida:** Costa Brava, con IPL de 53 instancias de modelos del juego base y proyecto editable de SA Map Studio. Falta validación dentro del juego y ajuste de alturas/uniones.
 2. **Prueba y pulido del mapa:** comprobar terreno, colisiones, agua, accesos, LOD, radar, streaming y rendimiento en GTA SA 1.0 US.
 3. **Mejora del terreno:** reemplazar piezas de terreno de prueba por geometría propia optimizada donde sea necesario; crear costa y relieve coherentes.
 4. **Ampliación de la región:** terminar carreteras, puerto, asentamiento, puntos de interés y acceso práctico desde el continente.
