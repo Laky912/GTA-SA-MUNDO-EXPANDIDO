@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.20)
 project(MundoExpandidoASI LANGUAGES C CXX)
 
+if(MSVC)
+  set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+endif()
+
 if(NOT WIN32)
   message(FATAL_ERROR "MundoExpandidoASI solo se compila para Windows.")
 endif()
