@@ -1,21 +1,23 @@
-# Costa Brava - primera región
+# Instalación de Costa Brava
 
-La primera zona del mapa ya tiene un IPL con **53 instancias** de modelos originales de GTA San Andreas: cuatro plataformas de terreno conectadas, una loma verde con borde de tierra, una terraza costera, tramos de costa, carretera, cabañas, embarcadero, palmeras, mobiliario y rocas de orilla.
-
-La ubicación prevista es el mar al sur de Los Santos, centrada aproximadamente en X=225, Y=-2600.
-
-## Instalación
-1. Cierra el juego.
-2. Extrae el ZIP completo en la carpeta principal de GTA San Andreas.
-3. Mod Loader cargará `modloader/GTA-SA-Mundo-Expandido-Costa-Brava`.
+1. Cierra GTA San Andreas.
+2. Extrae el ZIP completo directamente en la carpeta principal de GTA San Andreas, donde está `gta_sa.exe`.
+3. Mod Loader cargará el IPL desde `modloader/GTA-SA-Mundo-Expandido-Costa-Brava`.
 4. Para el menú opcional, copia `CLEO/ME_Core_Menu.cs` a la carpeta CLEO.
 
-## Archivos
-- `src/maps/costa_brava.ipl`: IPL textual.
-- `src/maps/Costa-Brava.sa-map-studio.json`: proyecto editable de SA Map Studio.
-- `docs/INSTALACION_MAPA.md`: guía del mapa.
+**Desinstalación:** elimina `modloader/GTA-SA-Mundo-Expandido-Costa-Brava`. Si instalaste el menú opcional, elimina también `CLEO/ME_Core_Menu.cs`.
 
-## Validación
-El IPL tiene 53 registros, 11 campos por instancia y cuaterniones normalizados. Los modelos utilizados existen en el juego base y conservan sus colisiones originales. No se distribuyen DFF/TXD/COL del juego.
+## Qué incluye el mapa
 
-No se ha ejecutado GTA SA en este entorno. La altura y unión de piezas, colisiones, agua, streaming, LOD, acceso por barco y rendimiento necesitan validación dentro del juego. Esta es la primera región, no la expansión completa.
+- 60 instancias principales y 13 modelos LOD enlazados.
+- Cinco tramos de puente con colisión original conectan Costa Brava con la costa de Los Santos.
+- Terreno arenoso, loma verde, terraza de playa, costa, carretera, cabañas y embarcadero.
+- El proyecto editable de SA Map Studio contiene las 60 instancias principales.
+
+## Requisitos
+- GTA San Andreas clásico PC 1.0 US.
+- Mod Loader para la expansión geográfica.
+- CLEO solo para el menú opcional.
+
+## Validación y límites
+El IPL contiene 73 registros y pasó validación estructural: 11 campos por instancia, cuaterniones normalizados y enlaces LOD dentro del archivo. No se ha ejecutado GTA SA en este entorno; todavía hay que comprobar alturas, uniones, colisiones, agua, puente, streaming y rendimiento dentro del juego. Haz copia de seguridad de tus partidas.
