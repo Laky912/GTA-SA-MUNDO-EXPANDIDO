@@ -1,14 +1,10 @@
 # Recursos del mapa
 
-Aquí se integrarán los archivos propios de las regiones nuevas para Mod Loader.
+La primera región geográfica del proyecto ya tiene sus fuentes:
 
-Estructura prevista:
+- `src/maps/costa_brava.ipl`: colocación de 52 instancias de modelos originales del juego.
+- `src/maps/Costa-Brava.sa-map-studio.json`: proyecto editable de SA Map Studio.
 
-- `data/maps/`: IDE/IPL de las regiones.
-- `models/`: DFF, TXD y COL de terreno, edificios y objetos.
-- `lod/`: modelos simplificados de larga distancia, cuando se necesiten.
-- `docs/`: notas de exportación y compatibilidad de cada zona.
+El paquete instalable usa los modelos DFF/TXD/COL que ya existen en GTA San Andreas. No se redistribuyen archivos del juego ni se incluyen recursos de terceros.
 
-No se incluyen archivos vacíos ni modelos de marcador como si fueran una isla. La primera región solo se añadirá aquí cuando su geometría, colisión y datos de mapa estén exportados y revisados.
-
-**Estado:** estructura preparada; recursos de la primera región pendientes de construcción.
+La siguiente fase es probar Costa Brava en GTA SA 1.0 US y ajustar las piezas que presenten huecos, solapamientos o problemas de colisión/streaming. No se debe considerar terminada hasta validar en el juego.
