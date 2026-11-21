@@ -9,7 +9,7 @@ La prioridad principal del proyecto es **agrandar el mundo explorable de GTA San
 3. **Mejora del terreno:** reemplazar piezas de terreno de prueba por geometría propia optimizada donde sea necesario; crear costa y relieve coherentes.
 4. **Ampliación de la región:** terminar carreteras, puerto, asentamiento y puntos de interés.
 5. **Segunda región:** solo después de validar Costa Brava.
-6. **Modo libre:** conectar el menú F5 a sistemas reales; mantener F6 como herramienta administrativa opcional.
+6. **Modos:** el selector inicial ASI ya tiene fuente y build Win32; falta prueba en el juego. Completar el modo libre para que omita/cancele misiones de historia de forma segura; F6 queda restringido a Libre + Admin.
 7. **Vehículos y actividades:** taxi, transporte, reparto, policía y carreras dentro del mapa ampliado.
 8. **Economía y guardado:** pagos, progreso, propiedades y negocios persistentes.
 9. **Protagonistas:** dos personajes originales adultos intercambiables.
