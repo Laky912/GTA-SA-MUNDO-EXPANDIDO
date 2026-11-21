@@ -22,7 +22,6 @@ enum MenuAction : uint8_t {
     ACTION_SKIP = 20
 };
 
-#pragma pack(push, 1)
 struct MenuEntry {
     uint8_t action;
     char name[8];
@@ -40,7 +39,6 @@ struct MenuScreen {
     int8_t parentEntry;
     MenuEntry entries[12];
 };
-#pragma pack(pop)
 
 static_assert(sizeof(MenuEntry) == 18, "Unexpected CMenuEntry layout");
 static_assert(sizeof(MenuScreen) == 0xE2, "Unexpected CMenuScreen layout");
