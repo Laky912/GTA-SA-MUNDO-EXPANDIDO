@@ -1,25 +1,31 @@
-name: Compile CLEO scripts
+name: Compile CLEO and package map expansion
 
 on:
   push:
     branches: [main]
     paths:
       - "src/cleo/**"
+      - "src/maps/**"
+      - "docs/**"
+      - "README.md"
       - ".github/workflows/compile-cleo.yml"
   pull_request:
     paths:
       - "src/cleo/**"
+      - "src/maps/**"
+      - "docs/**"
+      - "README.md"
       - ".github/workflows/compile-cleo.yml"
   workflow_dispatch:
 
 concurrency:
-  group: cleo-build-${{ github.ref }}
+  group: mundo-expandido-build-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   compile:
     runs-on: windows-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -66,7 +72,7 @@ jobs:
               Remove-Item "compile.log" -Force
             }
             if (-not (Wait-ForBinary $smokeOut 8)) {
-              throw "Sanny Builder no generó el binario de la prueba mínima en 20 segundos. Revisa build/smoke-compile.log."
+              throw "Sanny Builder no generó el binario de la prueba mínima en 20 segundos."
             }
             "Smoke test: output generated" | Out-File "$env:GITHUB_WORKSPACE/build/smoke-result.txt"
 
@@ -77,7 +83,7 @@ jobs:
               Copy-Item "compile.log" "$env:GITHUB_WORKSPACE/build/compile.log" -Force
             }
             if (-not (Wait-ForBinary $projectOut 16)) {
-              throw "Sanny Builder no generó un binario válido para el panel CLEO en 20 segundos. Revisa build/compile.log."
+              throw "Sanny Builder no generó un binario válido para el panel CLEO en 20 segundos."
             }
             "Compiler: output generated" | Out-File "$env:GITHUB_WORKSPACE/build/compiler-result.txt"
           }
@@ -85,23 +91,66 @@ jobs:
           Get-ChildItem build | Format-Table Name,Length
           if (-not (Test-Path "build/ME_Core_Menu.cs")) { throw "El compilador no generó el archivo .cs." }
 
-      - name: Package initial playable module
+      - name: Validate map IPL structure
+        shell: pwsh
+        run: |
+          $ipl = Get-Content "src/maps/costa_brava.ipl"
+          $inside = $false
+          $count = 0
+          foreach ($line in $ipl) {
+            $t = $line.Trim()
+            if ($t -eq "inst") { $inside = $true; continue }
+            if ($t -eq "end" -and $inside) { $inside = $false; continue }
+            if ($inside -and $t -and -not $t.StartsWith("#")) {
+              $fields = $t.Split(",")
+              if ($fields.Count -ne 11) { throw "Registro IPL inválido: $t" }
+              $q = @([double]$fields[6], [double]$fields[7], [double]$fields[8], [double]$fields[9])
+              $norm = ($q | ForEach-Object { $_ * $_ } | Measure-Object -Sum).Sum
+              if ([Math]::Abs($norm - 1.0) -gt 0.00001) { throw "Cuaternión inválido: $t" }
+              $count++
+            }
+          }
+          if ($inside -or $count -ne 52) { throw "IPL incompleto o cantidad inesperada: $count" }
+          "Map IPL: $count registros validados" | Out-File "build/map-validation.txt"
+
+      - name: Package complete project
         if: success()
         shell: pwsh
         run: |
           $stage = "dist/GTA-SA-Mundo-Expandido"
-          New-Item -ItemType Directory -Force -Path "$stage/CLEO", $stage | Out-Null
+          $mapStage = "$stage/modloader/GTA-SA-Mundo-Expandido-Costa-Brava"
+          New-Item -ItemType Directory -Force -Path "$stage/CLEO", "$stage/docs", "$mapStage/objects", "$mapStage/project" | Out-Null
           Copy-Item "build/ME_Core_Menu.cs" "$stage/CLEO/ME_Core_Menu.cs"
-          Copy-Item "docs/INSTALACION.md" "$stage/INSTALACION.md"
+          Copy-Item "src/maps/costa_brava.ipl" "$mapStage/objects/samsp_mundo_expandido_cbrv.ipl"
+          Copy-Item "src/maps/Costa-Brava.sa-map-studio.json" "$mapStage/project/Costa-Brava.sa-map-studio.json"
+          Copy-Item "docs/MAPA.md" "$stage/docs/MAPA.md" -ErrorAction SilentlyContinue
+          Copy-Item "docs/INSTALACION_MAPA.md" "$stage/docs/INSTALACION_MAPA.md"
           Copy-Item "README.md" "$stage/README_PROYECTO.md"
-          Compress-Archive -Path $stage -DestinationPath "dist/GTA-SA-Mundo-Expandido-inicial.zip" -Force
+          @(
+            "# GTA San Andreas - Mundo Expandido / Costa Brava",
+            "# Mod Loader merges this IPL entry into gta.dat",
+            "IPL DATA\MAPS\SAMSP_MUNDO_EXPANDIDO_CBRV.IPL"
+          ) | Set-Content -Encoding ASCII "$mapStage/README.txt"
+          @(
+            "GTA SAN ANDREAS - MUNDO EXPANDIDO",
+            "",
+            "Extrae el contenido del ZIP en la carpeta principal del juego.",
+            "El mapa se instala en modloader\GTA-SA-Mundo-Expandido-Costa-Brava.",
+            "El menu CLEO es opcional: copia CLEO\ME_Core_Menu.cs a la carpeta CLEO del juego.",
+            "",
+            "Requisitos: GTA SA clasico PC 1.0 US; Mod Loader para el mapa; CLEO para el menu opcional.",
+            "Desinstalacion: elimina la carpeta modloader\GTA-SA-Mundo-Expandido-Costa-Brava y, si instalaste el menu, CLEO\ME_Core_Menu.cs.",
+            "",
+            "El IPL se valida estructuralmente, pero la colocacion, colisiones, agua, LOD y rendimiento requieren prueba dentro del juego."
+          ) | Set-Content -Encoding UTF8 "$stage/INSTALACION.md"
+          Compress-Archive -Path "$stage/*" -DestinationPath "dist/GTA-SA-Mundo-Expandido-completo.zip" -Force
 
-      - name: Upload initial ZIP
+      - name: Upload complete ZIP
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: GTA-SA-Mundo-Expandido-inicial
-          path: dist/GTA-SA-Mundo-Expandido-inicial.zip
+          name: GTA-SA-Mundo-Expandido-completo
+          path: dist/GTA-SA-Mundo-Expandido-completo.zip
           if-no-files-found: error
 
       - name: Upload compiler diagnostics
