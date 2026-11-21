@@ -72,9 +72,6 @@ void SetEntryText(MenuEntry& entry, const char* key) {
 }
 
 void PatchFrontend() {
-    if (g_patched)
-        return;
-
     auto* screens = reinterpret_cast<MenuScreen*>(kScreensAddress);
     MenuScreen& main = screens[kMainMenuPage];
     MenuScreen& modes = screens[kModesPage];
@@ -131,6 +128,10 @@ void PatchFrontend() {
 }
 
 void __fastcall HookInitialise(void* self, void*) {
+    if (reinterpret_cast<uintptr_t>(self) != kMenuManagerAddress) {
+        g_originalInitialise(self);
+        return;
+    }
     g_originalInitialise(self);
     PatchFrontend();
 }
@@ -138,6 +139,10 @@ void __fastcall HookInitialise(void* self, void*) {
 void __fastcall HookProcessMenuOptions(
     void* self, void*, char input, char* exit, char enter) {
 
+    if (reinterpret_cast<uintptr_t>(self) != kMenuManagerAddress) {
+        g_originalProcessMenuOptions(self, input, exit, enter);
+        return;
+    }
     const auto currentPage = *reinterpret_cast<int8_t*>(
         reinterpret_cast<uintptr_t>(self) + 0x15D);
     if (currentPage != kModesPage) {
@@ -181,12 +186,12 @@ DWORD WINAPI InstallHooks(void*) {
         return 0;
 
     if (MH_CreateHook(reinterpret_cast<void*>(kInitialiseAddress),
-                      &HookInitialise,
+                      reinterpret_cast<void*>(&HookInitialise),
                       reinterpret_cast<void**>(&g_originalInitialise)) != MH_OK)
         return 0;
 
     if (MH_CreateHook(reinterpret_cast<void*>(kProcessMenuOptionsAddress),
-                      &HookProcessMenuOptions,
+                      reinterpret_cast<void*>(&HookProcessMenuOptions),
                       reinterpret_cast<void**>(&g_originalProcessMenuOptions)) != MH_OK)
         return 0;
 
