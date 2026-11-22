@@ -1,0 +1,177 @@
+{$CLEO .cs}
+
+// Mundo Expandido: telefono HUD y cadena de misiones secundarias.
+// GTA San Andreas clasico PC 1.0 US + CLEO 4.
+// El telefono usa texto nativo de GTA; no reemplaza el modelo 3D del telefono.
+
+0000:
+03A4: name_thread 'ME_PHONE'
+0@ = 0 // Telefono cerrado/abierto.
+1@ = 0 // Mision: 0 libre, 1-3 etapa activa.
+2@ = 0.0 // Distancia acumulada de la etapa.
+3@ = 0.0 // Posicion anterior X.
+4@ = 0.0 // Posicion anterior Y.
+5@ = 0.0 // Distancia entre posiciones.
+6@ = 0.0 // Posicion actual X.
+7@ = 0.0 // Posicion actual Y.
+8@ = 0.0 // Objetivo de distancia.
+
+:MEP_MAIN
+wait 0
+
+// F8 abre/cierra el smartphone.
+if
+    0AB0: key_pressed 0x77
+then
+    if
+        0@ == 0
+    then
+        0@ = 1
+        0ACD: show_text_highpriority "~b~SMARTPHONE~n~~w~1: Economia~n~2: Misiones secundarias~n~3: Cerrar" time 5000
+    else
+        0@ = 0
+        0ACD: show_text_highpriority "Telefono guardado" time 1200
+    end
+    :MEP_WAIT_F8
+    wait 0
+    if
+        0AB0: key_pressed 0x77
+    then
+        jump @MEP_WAIT_F8
+    end
+end
+
+if
+    0@ == 1
+then
+    // Economia: el dinero usa el saldo nativo de GTA y se conserva en las partidas.
+    if
+        0AB0: key_pressed 0x31
+    then
+        0ACD: show_text_highpriority "~g~ECONOMIA~n~~w~El saldo es tu dinero actual de GTA.~n~Gana efectivo completando encargos." time 3500
+        :MEP_WAIT_1
+        wait 0
+        if
+            0AB0: key_pressed 0x31
+        then
+            jump @MEP_WAIT_1
+        end
+    end
+
+    // Misiones secundarias en cadena: tres etapas de conduccion con pago creciente.
+    if
+        0AB0: key_pressed 0x32
+    then
+        if
+            1@ == 0
+        then
+            if
+                00DF: actor $PLAYER_ACTOR driving
+            then
+                1@ = 1
+                2@ = 0.0
+                00A0: store_actor $PLAYER_ACTOR position_to 3@ 4@ 14@
+                0ACD: show_text_highpriority "~b~ENCARGO 1/3: PAQUETES~n~~w~Conduce 400 metros. Pago: $500" time 4000
+            else
+                0ACD: show_text_highpriority "~r~Subete a un vehiculo para iniciar el encargo." time 2500
+            end
+        else
+            if
+                1@ == 1
+            then
+                0ACD: show_text_highpriority "~b~ENCARGO 1/3~n~~w~Entrega los paquetes: 400 metros." time 2500
+            else
+                if
+                    1@ == 2
+                then
+                    0ACD: show_text_highpriority "~b~ENCARGO 2/3~n~~w~Recoge documentos: 700 metros." time 2500
+                else
+                    0ACD: show_text_highpriority "~b~ENCARGO 3/3~n~~w~Entrega urgente: 1,000 metros." time 2500
+                end
+            end
+        end
+        :MEP_WAIT_2
+        wait 0
+        if
+            0AB0: key_pressed 0x32
+        then
+            jump @MEP_WAIT_2
+        end
+    end
+
+    if
+        0AB0: key_pressed 0x33
+    then
+        0@ = 0
+        0ACD: show_text_highpriority "Telefono guardado" time 1200
+        :MEP_WAIT_3
+        wait 0
+        if
+            0AB0: key_pressed 0x33
+        then
+            jump @MEP_WAIT_3
+        end
+    end
+end
+
+// Seguimiento por distancia recorrida; ignora saltos de posicion bruscos.
+if
+    1@ > 0
+then
+    if
+        00DF: actor $PLAYER_ACTOR driving
+    then
+        00A0: store_actor $PLAYER_ACTOR position_to 6@ 7@ 14@
+        050A: get_distance_between_coords_2d 6@ 7@ 3@ 4@ store_to 5@
+        if
+            5@ < 100.0
+        then
+            005B: 2@ += 5@
+        end
+        0087: 3@ = 6@
+        0087: 4@ = 7@
+
+        if
+            1@ == 1
+        then
+            8@ = 400.0
+        else
+            if
+                1@ == 2
+            then
+                8@ = 700.0
+            else
+                8@ = 1000.0
+            end
+        end
+
+        if
+            2@ >= 8@
+        then
+            if
+                1@ == 1
+            then
+                0109: player $PLAYER_CHAR money += 500
+                1@ = 2
+                2@ = 0.0
+                0ACD: show_text_highpriority "~g~+$500~n~~b~ENCARGO 2/3: DOCUMENTOS~n~~w~Conduce 700 metros." time 4000
+            else
+                if
+                    1@ == 2
+                then
+                    0109: player $PLAYER_CHAR money += 1000
+                    1@ = 3
+                    2@ = 0.0
+                    0ACD: show_text_highpriority "~g~+$1,000~n~~b~ENCARGO 3/3: ENTREGA URGENTE~n~~w~Conduce 1,000 metros." time 4000
+                else
+                    0109: player $PLAYER_CHAR money += 2500
+                    1@ = 0
+                    2@ = 0.0
+                    0ACD: show_text_highpriority "~g~CADENA COMPLETADA~n~~w~+$2,500. Buen trabajo." time 4000
+                end
+            end
+        end
+    end
+end
+
+jump @MEP_MAIN
