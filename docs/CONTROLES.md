@@ -36,3 +36,17 @@ Las teclas numéricas ejecutan acciones únicamente cuando el panel correspondie
 
 ## Estado de verificación
 El menú, las acciones rápidas, el panel de administrador y el prototipo de reparto están incluidos en la fuente CLEO. La compilación automática comprueba generación del binario; las funciones requieren pruebas dentro de GTA SA 1.0 US antes de considerarse verificadas.
+
+
+## Telefono y economia
+- **F8:** abrir/cerrar el telefono.
+- **1:** mostrar la informacion de economia; el saldo sigue siendo el dinero nativo de GTA SA.
+- **2:** iniciar la cadena de encargos o consultar la etapa actual.
+- **3:** guardar/cerrar el telefono.
+
+## Cadena de misiones secundarias
+1. **Paquetes:** conduce 400 metros y recibe $500.
+2. **Documentos:** conduce 700 metros y recibe $1,000.
+3. **Entrega urgente:** conduce 1,000 metros y recibe $2,500.
+
+Las etapas se encadenan en orden y el pago se añade al dinero del jugador. Se requiere estar en un vehículo para iniciar. El telefono es una interfaz de texto nativa, no un modelo 3D de smartphone; la compilacion no sustituye la prueba dentro del juego.
