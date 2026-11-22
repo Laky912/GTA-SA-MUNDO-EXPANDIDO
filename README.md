@@ -37,3 +37,10 @@ La expansión geográfica completa continúa en desarrollo; no se presenta Costa
 ## Derechos
 
 Proyecto de fans no oficial. GTA y sus elementos originales pertenecen a sus titulares. No se redistribuyen archivos originales del juego ni recursos extraídos de GTA u otros mods sin permiso.
+
+
+## Telefono y misiones secundarias
+
+El modulo CLEO opcional `ME_Phone_Missions.cs` añade un telefono de texto que se abre con **F8**. Incluye acceso a economia y una cadena de tres encargos de conduccion con pagos crecientes. No es una interfaz grafica 3D ni reemplaza el modelo de telefono original.
+
+La compilacion automatica comprueba que el script se genere; sus controles y pagos aun requieren prueba dentro de GTA SA 1.0 US.
