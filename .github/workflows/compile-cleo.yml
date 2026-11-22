@@ -90,6 +90,16 @@ jobs:
               throw "Sanny Builder no generó un binario válido para el panel CLEO en 20 segundos."
             }
             "Compiler: output generated" | Out-File "$env:GITHUB_WORKSPACE/build/compiler-result.txt"
+
+            $phoneOut = Join-Path $env:GITHUB_WORKSPACE "build/ME_Phone_Missions.cs"
+            & $env:SANNY_EXE --mode sa_sbl --compile "$env:GITHUB_WORKSPACE/src/cleo/ME_Phone_Missions.txt" $phoneOut
+            if (Test-Path "compile.log") {
+              Copy-Item "compile.log" "$env:GITHUB_WORKSPACE/build/phone-compile.log" -Force
+            }
+            if (-not (Wait-ForBinary $phoneOut 16)) {
+              throw "Sanny Builder no generó el binario del telefono y misiones en 20 segundos."
+            }
+            "Phone and side missions: output generated" | Out-File "$env:GITHUB_WORKSPACE/build/phone-result.txt"
           }
           finally { Pop-Location }
           Get-ChildItem build | Format-Table Name,Length
@@ -138,6 +148,7 @@ jobs:
           $mapStage = "$stage/modloader/GTA-SA-Mundo-Expandido-Costa-Brava"
           New-Item -ItemType Directory -Force -Path "$stage/CLEO/CLEO_TEXT", "$stage/docs", "$mapStage/data/maps", "$mapStage/project" | Out-Null
           Copy-Item "build/ME_Core_Menu.cs" "$stage/CLEO/ME_Core_Menu.cs"
+          Copy-Item "build/ME_Phone_Missions.cs" "$stage/CLEO/ME_Phone_Missions.cs"
           Copy-Item "build/asi-output/MundoExpandido.asi" "$stage/MundoExpandido.asi"
           Copy-Item "src/asi/ME_MODOS.fxt" "$stage/CLEO/CLEO_TEXT/ME_MODOS.fxt"
           Copy-Item "src/maps/costa_brava.ipl" "$mapStage/data/maps/samsp_mundo_expandido_cbrv.ipl"
@@ -161,6 +172,7 @@ jobs:
             "El mapa se instala en modloader\GTA-SA-Mundo-Expandido-Costa-Brava.",
             "El menu del frontend requiere MundoExpandido.asi en la carpeta principal del juego y ME_MODOS.fxt en CLEO\CLEO_TEXT.",
             "El panel CLEO es opcional: copia CLEO\ME_Core_Menu.cs a la carpeta CLEO del juego.",
+            "El telefono y las misiones secundarias: copia CLEO\ME_Phone_Missions.cs a la carpeta CLEO del juego; F8 abre el telefono.",
             "",
             "Requisitos: GTA SA clasico PC 1.0 US; ASI Loader x86; CLEO 4; Mod Loader para el mapa.",
             "Desinstalacion: elimina MundoExpandido.asi, CLEO\CLEO_TEXT\ME_MODOS.fxt, CLEO\ME_Core_Menu.cs y la carpeta modloader\GTA-SA-Mundo-Expandido-Costa-Brava.",
