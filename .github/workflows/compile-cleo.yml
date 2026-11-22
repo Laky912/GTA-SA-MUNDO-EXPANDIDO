@@ -7,6 +7,8 @@ on:
       - "src/cleo/**"
       - "src/asi/**"
       - "src/maps/**"
+      - "modloader/**"
+      - "modloader/**"
       - "docs/**"
       - "README.md"
       - ".github/workflows/compile-cleo.yml"
@@ -139,6 +141,7 @@ jobs:
           Copy-Item "build/asi-output/MundoExpandido.asi" "$stage/MundoExpandido.asi"
           Copy-Item "src/asi/ME_MODOS.fxt" "$stage/CLEO/CLEO_TEXT/ME_MODOS.fxt"
           Copy-Item "src/maps/costa_brava.ipl" "$mapStage/data/maps/samsp_mundo_expandido_cbrv.ipl"
+          Copy-Item "modloader/GTA-SA-Mundo-Expandido-Costa-Brava/data/gta.dat" "$mapStage/data/gta.dat"
           Copy-Item "src/maps/Costa-Brava.sa-map-studio.json" "$mapStage/project/Costa-Brava.sa-map-studio.json"
           Copy-Item "docs/MAPA.md" "$stage/docs/MAPA.md" -ErrorAction SilentlyContinue
           Copy-Item "docs/INSTALACION_MAPA.md" "$stage/docs/INSTALACION_MAPA.md"
